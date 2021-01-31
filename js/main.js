@@ -1,3 +1,7 @@
+const getRandomNumber = function(min, max) {
+  return Math.random() * (max - min + 1) + min;
+}
+
 const getRandomInteger = function(min, max) {
   if (min < 0 || max < 0) {
     throw 'Функция может принимать только положительные значения';
@@ -10,10 +14,10 @@ const getRandomInteger = function(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(getRandomNumber(min, max));
 }
 
-const getRandomFloatInteger = function(min, max, signCount) {
+const getRandomFloat = function(min, max, signCount) {
   if (min < 0 || max < 0 || signCount < 0) {
     throw 'Функция может принимать только положительные значения';
   }
@@ -22,9 +26,10 @@ const getRandomFloatInteger = function(min, max, signCount) {
     throw 'Значение параметра max не может быть меньше или равно значению параметра min';
   }
 
-  const randomNumber = Math.random() * (max - min + 1) + min;
-  return randomNumber.toFixed(signCount);
+  const randomNumber = getRandomNumber(min, max);
+
+  return Number(randomNumber.toFixed(signCount));
 }
 
 getRandomInteger(5, 10);
-getRandomFloatInteger(1.3, 5.5, 2);
+getRandomFloat(1.3, 5.5, 2);
