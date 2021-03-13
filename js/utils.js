@@ -48,3 +48,18 @@ export const getRandomArrayElements = function (array) {
   return array.slice(0, getRandomInteger(1, array.length - 1));
 }
 
+export const changeAction = (element,  selector, disabled) => {
+  Array
+    .from(element.querySelectorAll(selector))
+    .forEach((item) => {
+      item.disabled = disabled
+    });
+}
+
+export const toggleClassByCondition = (element, cssClass, condition) => {
+  if (condition) {
+    element.classList.add(cssClass);
+  } else {
+    element.classList.remove(cssClass);
+  }
+}

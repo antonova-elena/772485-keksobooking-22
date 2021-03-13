@@ -14,7 +14,11 @@ export const createCardElement = (offer) => {
   newPopupElement.querySelector('.popup__avatar').src = avatar;
   newPopupElement.querySelector('.popup__title').textContent = title;
   newPopupElement.querySelector('.popup__text--address').textContent = address;
-  newPopupElement.querySelector('.popup__text--price').textContent = price;
+
+  const priceElement = newPopupElement.querySelector('.popup__text--price');
+  priceElement.textContent = `${price}`;
+  priceElement.insertAdjacentHTML('beforeEnd', '&nbsp;<span>₽/ночь</span>');
+
   newPopupElement.querySelector('.popup__type').textContent = AppartmentType[type.toUpperCase()];
   newPopupElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
   newPopupElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
