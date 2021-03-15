@@ -1,10 +1,11 @@
-import {createOffers} from './data.js';
-import {createCardElement} from './popup.js';
-import {OFFER_COUNT} from './const.js';
 import './form.js';
-
-const mapElement = document.querySelector('.map__canvas');
+import './filter-form.js';
+import {createOffers} from './data.js';
+import {OFFER_COUNT} from './const.js';
+import {initMap, addMainPin, renderOfferPoints} from './map.js';
 
 const offers = createOffers(OFFER_COUNT);
-const [firstCard] = offers;
-mapElement.appendChild(createCardElement(firstCard));
+
+const map = initMap();
+addMainPin(map);
+renderOfferPoints(map, offers);
