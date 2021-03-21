@@ -1,11 +1,22 @@
 import './form.js';
 import './filter-form.js';
-import {createOffers} from './data.js';
-import {OFFER_COUNT} from './const.js';
 import {initMap, addMainPin, renderOfferPoints} from './map.js';
+import {getOffers} from './service.js';
+import {showError} from './message.js';
 
-const offers = createOffers(OFFER_COUNT);
+const init = async () => {
+  const map = initMap();
+  addMainPin(map);
 
-const map = initMap();
-addMainPin(map);
-renderOfferPoints(map, offers);
+  let offers = [];
+
+  try {
+    offers = await getOffers();
+  } catch ({message}) {
+    showError(message);
+  }
+
+  renderOfferPoints(map, offers);
+}
+
+init();

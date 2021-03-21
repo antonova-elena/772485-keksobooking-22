@@ -1,5 +1,7 @@
 import {changeAction, toggleClassByCondition} from './utils.js';
 import {DISABLED_FORM_CLASS_NAME} from './const.js'
+import {sendNewOffer} from './service.js';
+import {showSuccessMessage, showError} from './message.js';
 
 const SIGN_COUNT = 5;
 
@@ -53,6 +55,10 @@ export const setAddress = ({lat, lng}) => {
   addressElement.value = `${lat.toFixed(SIGN_COUNT)}, ${lng.toFixed(SIGN_COUNT)}`;
 }
 
+export const getAddress = () => {
+  return addressElement.value;
+}
+
 typeHouseElement.addEventListener('change', (evt) => {
   priceElement.placeholder = houseTypePriceMap[evt.target.value];
   priceElement.min = houseTypePriceMap[evt.target.value];
@@ -70,26 +76,49 @@ capacityElement.addEventListener('change', () => {
   capacityElement.setCustomValidity('');
 });
 
-formElement.addEventListener('submit', (evt) => {
+roomNumberElement.addEventListener('change', () => {
+  capacityElement.setCustomValidity('');
+});
+
+formElement.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+
+  const offerFormElement = evt.target;
   const guestCount = +capacityElement.value;
   const roomCount = roomNumberElement.value;
 
   if (!checkGuestInTheRoom(roomCount, guestCount)) {
-    evt.preventDefault();
     capacityElement.setCustomValidity(`${roomCount} комната(ы) рассчитана на ${AllowedRoomGuest[roomCount].join(' или ')} гостей.`);
+    capacityElement.reportValidity();
+    return;
   }
 
-  capacityElement.reportValidity();
+  try {
+    await sendNewOffer(offerFormElement);
+  } catch (error) {
+    return showError(error.message);
+  }
+
+  formElement.reset();
+  showSuccessMessage();
+  init();
+  setDisabledNewOfferForm(false);
+});
+
+formElement.addEventListener('reset', () => {
+  const address = getAddress();
+
+  setTimeout(() => {
+    addressElement.value = address;
+  }, 0);
 });
 
 const init = () => {
   priceElement.placeholder = houseTypePriceMap.flat;
   priceElement.min = houseTypePriceMap.flat;
-
   checkoutElement.value = checkinElement.value;
   setDisabledNewOfferForm(true);
 }
-
 
 init();
 
