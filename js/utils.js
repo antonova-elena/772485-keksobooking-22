@@ -1,3 +1,5 @@
+import {Key} from './const.js';
+
 const getRandomNumber = function(min, max) {
   return Math.random() * (max - min + 1) + min;
 }
@@ -63,3 +65,9 @@ export const toggleClassByCondition = (element, cssClass, condition) => {
     element.classList.remove(cssClass);
   }
 }
+
+export const isEscapeKey = (key) => {
+  return key === Key.ESC || Key.ESCAPE;
+}
+
+

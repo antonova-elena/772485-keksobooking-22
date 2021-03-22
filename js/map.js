@@ -61,8 +61,8 @@ export const renderOfferPoints = (map, points) => {
     });
 
     L.marker({
-      lat: point.location.x,
-      lng: point.location.y,
+      lat: point.location.lat,
+      lng: point.location.lng,
     },
     {
       pinIcon,
@@ -76,10 +76,3 @@ export const renderOfferPoints = (map, points) => {
       );
   });
 }
-
-
-
-
-
-
-
