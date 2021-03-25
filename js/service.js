@@ -3,7 +3,6 @@ const POST_OFFER_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 export const getOffers = async () => {
   const response = await fetch(GET_OFFERS_URL);
-
   if (! response.ok) {
     throw new Error(response.statusText);
   }
@@ -18,7 +17,6 @@ export const sendNewOffer = async (formElement) => {
     method: 'POST',
     body,
   });
-
   if (! response.ok) {
     throw new Error(response.statusText);
   }

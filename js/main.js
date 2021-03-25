@@ -1,12 +1,14 @@
 import './form.js';
-import './filter-form.js';
-import {initMap, addMainPin, renderOfferPoints} from './map.js';
+import {setOffers, initFilterForm} from './filter-form.js';
+import {initMap, renderOfferPoints} from './map.js';
 import {getOffers} from './service.js';
 import {showError} from './message.js';
+import {MAX_OFFERS_COUNT} from './const.js';
 
 const init = async () => {
+  initFilterForm((filtredOffers) => renderOfferPoints(map, filtredOffers));
+
   const map = initMap();
-  addMainPin(map);
 
   let offers = [];
 
@@ -16,7 +18,8 @@ const init = async () => {
     showError(message);
   }
 
-  renderOfferPoints(map, offers);
+  setOffers(offers);
+  renderOfferPoints(map, offers.slice(0, MAX_OFFERS_COUNT));
 }
 
 init();
