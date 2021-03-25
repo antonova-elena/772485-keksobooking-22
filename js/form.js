@@ -3,6 +3,7 @@ import {DISABLED_FORM_CLASS_NAME} from './const.js'
 import {sendNewOffer} from './service.js';
 import {showSuccessMessage, showError} from './message.js';
 import {resetPositionMainPin} from './map.js';
+import {resetPreviewImage} from './preview.js';
 
 const SIGN_COUNT = 5;
 
@@ -108,6 +109,7 @@ formElement.addEventListener('submit', async (evt) => {
 
 formElement.addEventListener('reset', () => {
   setTimeout(resetPositionMainPin, 0);
+  resetPreviewImage();
 });
 
 const init = () => {
