@@ -70,4 +70,13 @@ export const isEscapeKey = (key) => {
   return key === Key.ESC || Key.ESCAPE;
 }
 
-
+export const debounce = (cb, time) => {
+  let interval;
+  return (...args) => {
+    clearTimeout(interval);
+    interval = setTimeout(() => {
+      interval = null;
+      cb(...args);
+    }, time);
+  }
+}
