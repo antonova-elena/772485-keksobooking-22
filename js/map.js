@@ -9,6 +9,9 @@ const MAP_CONTAINER_ID = 'map-canvas';
 const MAIN_PIN_ICON_PATH = '/img/main-pin.svg';
 const PIN_ICON_PATH = '/img/pin.svg';
 
+let markers = null;
+let mainPin = null;
+
 export const initMap = () => {
   const map = L.map(MAP_CONTAINER_ID)
     .on('load', () => {
@@ -26,10 +29,13 @@ export const initMap = () => {
   )
     .addTo(map);
 
+  markers = L.layerGroup().addTo(map);
+  mainPin = addMainPin(map);
+
   return map;
 }
 
-export const addMainPin = (map) => {
+const addMainPin = (map) => {
   const mainPinIcon = L.icon({
     iconUrl: MAIN_PIN_ICON_PATH,
     iconSize: [52, 52],
@@ -53,6 +59,7 @@ export const addMainPin = (map) => {
 }
 
 export const renderOfferPoints = (map, points) => {
+  markers.clearLayers();
   points.forEach((point) => {
     const pinIcon = L.icon({
       iconUrl: PIN_ICON_PATH,
@@ -67,7 +74,7 @@ export const renderOfferPoints = (map, points) => {
     {
       pinIcon,
     })
-      .addTo(map)
+      .addTo(markers)
       .bindPopup(
         createCardElement(point),
         {
@@ -75,4 +82,9 @@ export const renderOfferPoints = (map, points) => {
         },
       );
   });
+}
+
+export const resetPositionMainPin = () => {
+  mainPin.setLatLng(DEFAULT_COORDINATE);
+  setAddress(DEFAULT_COORDINATE);
 }
