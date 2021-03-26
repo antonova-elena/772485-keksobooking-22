@@ -3,10 +3,14 @@ import {setOffers, initFilterForm} from './filter-form.js';
 import {initMap, renderOfferPoints} from './map.js';
 import {getOffers} from './service.js';
 import {showError} from './message.js';
-import {MAX_OFFERS_COUNT} from './const.js';
+import {MAX_OFFERS_COUNT, DEBOUNCE_TIMEOUT} from './const.js';
+import {debounce} from './utils.js';
 
 const init = async () => {
-  initFilterForm((filtredOffers) => renderOfferPoints(map, filtredOffers));
+  initFilterForm(debounce(
+    (filtredOffers) => renderOfferPoints(map, filtredOffers),
+    DEBOUNCE_TIMEOUT),
+  );
 
   const map = initMap();
 
