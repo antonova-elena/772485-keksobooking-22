@@ -5,6 +5,7 @@ import {getOffers} from './service.js';
 import {showError} from './message.js';
 import {MAX_OFFERS_COUNT, DEBOUNCE_TIMEOUT} from './const.js';
 import {debounce} from './utils.js';
+import './preview.js';
 
 const init = async () => {
   initFilterForm(debounce(
