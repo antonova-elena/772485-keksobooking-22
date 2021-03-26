@@ -17,6 +17,6 @@ export const Key = {
 
 export const DISABLED_FORM_CLASS_NAME = 'add-form--disabled';
 
-export const MAX_OFFERS_COUNT = 5;
+export const MAX_OFFERS_COUNT = 10;
 
 export const DEBOUNCE_TIMEOUT = 500;
