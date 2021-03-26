@@ -32,13 +32,3 @@ export const createCardElement = (offer) => {
 
   return newPopupElement;
 }
-
-export const createCardsFragemnt = (offers) => {
-  const fragment = document.createDocumentFragment();
-  offers.forEach((offer) => {
-    const newCardElement = createCardElement(offer);
-    fragment.append(newCardElement);
-  });
-
-  return fragment;
-}

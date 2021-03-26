@@ -57,10 +57,6 @@ export const setAddress = ({lat, lng}) => {
   addressElement.value = `${lat.toFixed(SIGN_COUNT)}, ${lng.toFixed(SIGN_COUNT)}`;
 }
 
-export const getAddress = () => {
-  return addressElement.value;
-}
-
 typeHouseElement.addEventListener('change', (evt) => {
   priceElement.placeholder = houseTypePriceMap[evt.target.value];
   priceElement.min = houseTypePriceMap[evt.target.value];
