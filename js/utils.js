@@ -1,10 +1,10 @@
 import {Key} from './const.js';
 
-const getRandomNumber = function(min, max) {
+const getRandomNumber = (min, max) => {
   return Math.random() * (max - min + 1) + min;
 }
 
-export const getRandomInteger = function(min, max) {
+export const getRandomInteger = (min, max) => {
   if (min < 0 || max < 0) {
     throw 'Функция может принимать только положительные значения';
   }
