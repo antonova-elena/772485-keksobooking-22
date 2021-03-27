@@ -31,6 +31,7 @@ export const showError = (text) => {
 
   errorElement.addEventListener('click', () => {
     removeErrorElement();
+    document.removeEventListener('keydown', onEscapeKeydown);
   });
 
   mainElement.append(errorElement);
@@ -53,6 +54,7 @@ export const showSuccessMessage = () => {
   document.addEventListener('keydown', onEscapeKeydown);
   messageBoxElement.addEventListener('click', () => {
     removeSuccessElement();
+    document.removeEventListener('keydown', onEscapeKeydown);
   });
 
   mainElement.append(messageBoxElement);
