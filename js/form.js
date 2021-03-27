@@ -4,6 +4,7 @@ import {sendNewOffer} from './service.js';
 import {showSuccessMessage, showError} from './message.js';
 import {resetPositionMainPin} from './map.js';
 import {resetPreviewImage} from './preview.js';
+import {resetFilterForm} from './filter-form.js';
 
 const SIGN_COUNT = 5;
 
@@ -98,6 +99,7 @@ formElement.addEventListener('submit', async (evt) => {
   }
 
   formElement.reset();
+  resetFilterForm();
   showSuccessMessage();
   init();
   setDisabledNewOfferForm(false);
@@ -106,6 +108,7 @@ formElement.addEventListener('submit', async (evt) => {
 formElement.addEventListener('reset', () => {
   setTimeout(resetPositionMainPin, 0);
   resetPreviewImage();
+  resetFilterForm();
 });
 
 const init = () => {

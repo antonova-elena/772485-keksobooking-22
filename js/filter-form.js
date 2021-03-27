@@ -19,6 +19,7 @@ const houseRoomsCountElement = formFilterElement.querySelector('#housing-rooms')
 const houseGuestCountElement = formFilterElement.querySelector('#housing-guests');
 
 let loadedOffers = [];
+let onChangeFilter = null;
 
 const checkOfferType = ({offer}) => {
   return houseTypeElement.value === offer.type || houseTypeElement.value === ANY_OFFER;
@@ -79,10 +80,16 @@ export const getFiltredOffers = () => {
 
 export const initFilterForm = (cb) => {
   setDisabledFilterForm(true);
-  formFilterElement.addEventListener('change', () => cb(getFiltredOffers()));
+  onChangeFilter = cb;
+  formFilterElement.addEventListener('change', () => onChangeFilter(getFiltredOffers()));
 };
 
 export const setOffers = (offers) => {
   loadedOffers = offers;
+}
+
+export const resetFilterForm = () => {
+  formFilterElement.reset();
+  setTimeout(() => onChangeFilter(getFiltredOffers()), 0);
 }
 
